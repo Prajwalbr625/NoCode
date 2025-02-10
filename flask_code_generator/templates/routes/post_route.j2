@@ -1,0 +1,13 @@
+@app.route('{{ path }}', methods=['POST'])
+def {{ function_name }}():
+    try:
+        payload = request.get_json()
+        logging.info("POST request received at {{ path }} with data: " + str(payload))
+        
+        {% for line in generated_sequence.split('\n') %}
+        {{ line | indent(8) }}
+        {% endfor %}
+    
+    except Exception as e:
+        logging.error(f"Error in POST request: {str(e)}")
+        return jsonify({"error": str(e)}), 500
